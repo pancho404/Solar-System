@@ -19,8 +19,8 @@ MonoBehaviour:
     m_Value: 0.9
     min: 0
   intensity:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 5.82
     min: 0
   scatter:
     m_OverrideState: 0
@@ -32,8 +32,8 @@ MonoBehaviour:
     m_Value: 65472
     min: 0
   tint:
-    m_OverrideState: 0
-    m_Value: {r: 1, g: 1, b: 1, a: 1}
+    m_OverrideState: 1
+    m_Value: {r: 0.9622642, g: 0.5911943, b: 0.09531862, a: 1}
     hdr: 0
     showAlpha: 0
     showEyeDropper: 1
@@ -64,4 +64,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7fd9488000d3734a9e00ee676215985, type: 3}
   m_Name: Sun Profile 1
   m_EditorClassIdentifier: 
-  components: []
+  components:
+  - {fileID: -3814794213376906215}
