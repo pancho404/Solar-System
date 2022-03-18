@@ -4,54 +4,61 @@ using UnityEngine;
 
 public class MoveCamera : MonoBehaviour
 {
-    public Vector3[] positions = new Vector3[14];
-    public GameObject[] stars = new GameObject[12];
-    public int offset;
+    Transform[] transforms;
+    public Vector3 initialPos;
+    Quaternion initialRotation;
+    GameObject[] stars = new GameObject[12];
+    public float offset;
     int actualPosition = 0;
-    public Vector3 initialPos = new Vector3 { x = 0, y = 0, z = 0 };
     private void Start()
     {
+        transforms = new Transform[12];
+        initialPos = transform.position;
+        initialRotation = transform.rotation;
         stars = GameObject.FindGameObjectsWithTag("Stars");
-        for (int i = 0; i <= stars.Length; i++)
+        for (int i = 0; i < stars.Length; i++)
         {
-            if (i==0)
-            {
-                positions[i] = initialPos;
-            }
-            else
-            {
-                positions[i].x = stars[i].transform.position.x - offset;
-            }
+            transforms[i] = stars[i].transform;
         }
-        Camera.main.transform.position = initialPos;
+
     }
-    // Update is called once per frame
+
+
     void Update()
     {
-        do
+        
+        if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            Camera.main.transform.position = positions[actualPosition];
-
-            if (Input.GetKey(KeyCode.RightArrow))
-            {               
-                actualPosition++;
-                Camera.main.transform.position = positions[actualPosition];
-                if (actualPosition > 11)
-                {
-                    actualPosition = 11;
-                }
+            actualPosition++;
+            if (actualPosition > transforms.Length - 1)
+            {
+                actualPosition = 0;
             }
+        }
 
-            if (Input.GetKey(KeyCode.LeftArrow))
-            {                
-                actualPosition--;
-                Camera.main.transform.position = positions[actualPosition];
-                if (actualPosition > 0)
-                {
-                    actualPosition = 0;
-                }
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            actualPosition--;
+            if (actualPosition < 0)
+            {
+                actualPosition = transforms.Length - 1;
             }
+        }
 
-        } while (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.RightArrow));
+    }
+
+    private void LateUpdate()
+    {
+        if (actualPosition == 0)
+        {
+            transform.position = initialPos;
+            transform.rotation = initialRotation;
+        }
+        else
+        {
+            Vector3 newPos = new Vector3(stars[actualPosition - 1].transform.position.x - offset, transforms[actualPosition - 1].position.y, transforms[actualPosition - 1].position.z);
+            transform.position = newPos;
+            transform.LookAt(transforms[actualPosition - 1], Vector3.up);
+        }
     }
 }
