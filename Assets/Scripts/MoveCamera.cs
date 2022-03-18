@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MoveCamera : MonoBehaviour
 {
-    public Vector3[] positions = new Vector3[13];
+    public Vector3[] positions = new Vector3[14];
     public GameObject[] stars = new GameObject[12];
     public int offset;
     int actualPosition = 0;
@@ -14,7 +14,14 @@ public class MoveCamera : MonoBehaviour
         stars = GameObject.FindGameObjectsWithTag("Stars");
         for (int i = 0; i <= stars.Length; i++)
         {
-            positions[i].x = stars[i].transform.position.x - offset;
+            if (i==0)
+            {
+                positions[i] = initialPos;
+            }
+            else
+            {
+                positions[i].x = stars[i].transform.position.x - offset;
+            }
         }
         Camera.main.transform.position = initialPos;
     }
@@ -26,9 +33,9 @@ public class MoveCamera : MonoBehaviour
             Camera.main.transform.position = positions[actualPosition];
 
             if (Input.GetKey(KeyCode.RightArrow))
-            {
-                Camera.main.transform.position = positions[actualPosition];
+            {               
                 actualPosition++;
+                Camera.main.transform.position = positions[actualPosition];
                 if (actualPosition > 11)
                 {
                     actualPosition = 11;
@@ -36,9 +43,9 @@ public class MoveCamera : MonoBehaviour
             }
 
             if (Input.GetKey(KeyCode.LeftArrow))
-            {
-                Camera.main.transform.position = positions[actualPosition];
+            {                
                 actualPosition--;
+                Camera.main.transform.position = positions[actualPosition];
                 if (actualPosition > 0)
                 {
                     actualPosition = 0;
