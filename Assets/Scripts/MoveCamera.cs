@@ -6,15 +6,15 @@ public class MoveCamera : MonoBehaviour
 {
     Transform[] transforms;
     public Vector3 initialPos;
-    Quaternion initialRotation;
+    public Quaternion initialRotation;
     GameObject[] stars = new GameObject[12];
     public float offset;
     int actualPosition = 0;
     private void Start()
     {
         transforms = new Transform[12];
-        initialPos = transform.position;
-        initialRotation = transform.rotation;
+        transform.position = initialPos;
+        transform.rotation = initialRotation;
         stars = GameObject.FindGameObjectsWithTag("Stars");
         for (int i = 0; i < stars.Length; i++)
         {
