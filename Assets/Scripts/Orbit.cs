@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Orbit : MonoBehaviour
 {
-    public Transform planetTarget;
-    public int velocity;
+   [SerializeField] Transform planetTarget;
+   [SerializeField] int velocity;
 
     // Update is called once per frame
     void Update()
